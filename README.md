@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/8evkif10fwgly8gq?svg=true)](https://ci.appveyor.com/project/trpowerr/yarnappveyorhw)
