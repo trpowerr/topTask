@@ -11,11 +11,11 @@
     <header>
         <h1>Todo.js</h1>
     </header>
-    <div class="top-task">
+    <div class="top-task" data-widget="filter-widget">
       <h3>Top task</h3>
       <form id="todo-form">
-        <input id="add-input" type="text">
-        <button id="add-button" type="submit">Добавить</button>
+        <input data-id="filter-text" id="add-input" type="text">
+        <button data-action="filter" id="add-button" type="submit">Добавить</button>
       </form>  
     </div>
     
@@ -29,10 +29,10 @@
       <li id="pinned-item">
       </li>
     </ul>
-    <div class="all-task">
+    <div id="all-task">
       <h3>All Task:</h3>
       <ul id="todo-list">
-        <li class="todo-item">
+        <li class="todo-item" >
         </li>
       </ul>
     </div>
