@@ -1,11 +1,12 @@
 import { filterByNameOrPhone } from './filter';
 import Task from './data';
 
+let id = null;
 const taskData = [];
 
 function createTodoItem(title) {
-  const newTask = new Task(addInput.value);
-  console.log(newTask);
+  const newTask = new Task(id += 1, addInput.value);
+  taskData.push(newTask);
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
@@ -17,15 +18,16 @@ function createTodoItem(title) {
 
   const listItem = document.createElement('li');
   listItem.className = 'todo-item';
+  listItem.id = id;
 
   listItem.appendChild(label);
   listItem.appendChild(checkbox);
 
   bindEvents(listItem);
-  // filterTodoItem(data);
 
-  taskData.push(newTask);
-  console.log(taskData);
+  addInput.addEventListener('input', () => {
+    filterByNameOrPhone(taskData, addInput.value);
+  });
 
   return listItem;
 }
@@ -33,11 +35,6 @@ function createTodoItem(title) {
 function bindEvents(todoItem) {
   const checkbox = todoItem.querySelector('.checkbox');
   checkbox.addEventListener('change', pinningTodoItem);
-
-  addInput.addEventListener('input', () => {
-    // console.log(addInput.value);
-    filterByNameOrPhone(data, addInput.value);
-  });
 }
 
 function addTodoItem(event) {
@@ -56,11 +53,8 @@ function pinningTodoItem() {
     pinnedList.removeChild(deleteNoPin);
   }
   const pinningItem = this.parentNode;
+  taskData[pinningItem.id - 1].pinned = true;
   pinnedList.appendChild(pinningItem);
-  console.log('pin', pinningItem);
-  for (let i = 0; i < taskData.length; i++) {
-    console.log('arr', taskData.i);
-  }
 }
 
 const todoForm = document.getElementById('todo-form');
