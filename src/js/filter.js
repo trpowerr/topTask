@@ -6,7 +6,7 @@ export function containsText(data, search) {
   return data.toLowerCase().includes(clean);
 }
 export function filterByNameOrPhone(contacts, text) {
-  return filterBy(contacts, o => (
+  return console.log(filterBy(contacts, o => (
     containsText(o.title, text)
-  ));
+  )));
 }

@@ -25,9 +25,7 @@ function createTodoItem(title) {
 
   bindEvents(listItem);
 
-  addInput.addEventListener('input', () => {
-    filterByNameOrPhone(taskData, addInput.value);
-  });
+  filter();
 
   return listItem;
 }
@@ -35,6 +33,12 @@ function createTodoItem(title) {
 function bindEvents(todoItem) {
   const checkbox = todoItem.querySelector('.checkbox');
   checkbox.addEventListener('change', pinningTodoItem);
+}
+
+function filter() {
+  addInput.addEventListener('input', () => {
+    filterByNameOrPhone(taskData, addInput.value);
+  });
 }
 
 function addTodoItem(event) {
@@ -62,8 +66,6 @@ const addInput = document.getElementById('add-input');
 const todoList = document.getElementById('todo-list');
 const todoItems = document.querySelectorAll('.todo-item');
 const pinnedList = document.getElementById('pinned-list');
-// const pinnedItems = document.getElementById('pinned-item');
-// const allTaskList = document.getElementById('all-task');
 
 function main() {
   todoForm.addEventListener('submit', addTodoItem);
