@@ -1,33 +1,24 @@
+alert('посмотрите readme');
 import { filterByNameOrPhone } from './filter';
 import Task from './data';
+// import buildTaskList from './build';
 
 let id = null;
 const taskData = [];
 
-function createTodoItem(title) {
-  const newTask = new Task(id += 1, addInput.value);
-  taskData.push(newTask);
-
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.className = 'checkbox';
-
-  const label = document.createElement('label');
-  label.innerText = title;
-  label.className = 'title';
-
-  const listItem = document.createElement('li');
-  listItem.className = 'todo-item';
-  listItem.id = id;
-
-  listItem.appendChild(label);
-  listItem.appendChild(checkbox);
-
-  bindEvents(listItem);
-
-  filter();
-
-  return listItem;
+function buildTaskList(contacts, containerEl, elementTag) {
+  containerEl.innerHTML = '';
+  contacts.forEach((task) => {
+    const el = document.createElement(elementTag);
+    el.dataset.task = 'todo-item';
+    el.className = 'todo-item';
+    el.id = task.id;
+    el.innerHTML = `
+      <label class="title">${task.title}</label><input class="checkbox" id="checkbox" type="checkbox">
+`;
+    containerEl.appendChild(el);
+    bindEvents(el);
+  });
 }
 
 function bindEvents(todoItem) {
@@ -35,20 +26,18 @@ function bindEvents(todoItem) {
   checkbox.addEventListener('change', pinningTodoItem);
 }
 
-function filter() {
-  addInput.addEventListener('input', () => {
-    filterByNameOrPhone(taskData, addInput.value);
-  });
-}
-
 function addTodoItem(event) {
   event.preventDefault();
 
   if (addInput.value === '') return alert('Необходимо ввести название задачи!');
+  const newTask = new Task(id += 1, addInput.value);
+  taskData.push(newTask);
 
-  const todoItem = createTodoItem(addInput.value);
-  todoList.appendChild(todoItem);
+  buildTaskList(taskData, todoList, 'li');
   addInput.value = '';
+  addInput.addEventListener('input', () => {
+    buildTaskList(filterByNameOrPhone(taskData, addInput.value), todoList, 'li');
+  });
 }
 
 function pinningTodoItem() {
@@ -57,7 +46,7 @@ function pinningTodoItem() {
     pinnedList.removeChild(deleteNoPin);
   }
   const pinningItem = this.parentNode;
-  taskData[pinningItem.id - 1].pinned = true;
+  delete taskData[pinningItem.id - 1];
   pinnedList.appendChild(pinningItem);
 }
 

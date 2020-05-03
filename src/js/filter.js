@@ -6,7 +6,22 @@ export function containsText(data, search) {
   return data.toLowerCase().includes(clean);
 }
 export function filterByNameOrPhone(contacts, text) {
-  return console.log(filterBy(contacts, o => (
+  let a = filterBy(contacts, o => (
     containsText(o.title, text)
-  )));
+  ));
+  // if (a.length === 0) {
+  //   console.log('hello');
+  //   const label = document.createElement('label');
+  //   label.innerText = 'title';
+  //   label.className = 'title';
+
+  //   const listItem = document.createElement('li');
+  //   listItem.className = 'zaglushka';
+
+  //   const todoList = document.getElementById('todo-list');
+  //   console.log(todoList);
+  //   listItem.appendChild(label);
+  //   todoList.appendChild(listItem);
+  // }
+  return a;
 }
